@@ -7,7 +7,7 @@ import numpy as np
 import torch
 from tqdm import tqdm
 from pathlib import Path
-from core.monster import Monster 
+from core.SyDENet import SyDENet 
 from core.utils.utils import InputPadder
 from PIL import Image
 from matplotlib import pyplot as plt
@@ -23,7 +23,7 @@ def load_image(imfile):
     return img[None].to(DEVICE)
 
 def demo(args):
-    model = torch.nn.DataParallel(Monster(args), device_ids=[0])
+    model = torch.nn.DataParallel(SyDENet(args), device_ids=[0])
 
     checkpoint = torch.load(args.restore_ckpt)
     ckpt = dict()

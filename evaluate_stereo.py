@@ -8,7 +8,7 @@ import logging
 import numpy as np
 import torch
 from tqdm import tqdm
-from monster import Monster, autocast
+from SyDENet import SyDENet, autocast
 
 import stereo_datasets as datasets
 from utils.utils import InputPadder
@@ -404,7 +404,7 @@ if __name__ == '__main__':
     parser.add_argument('--max_disp', type=int, default=192, help="max disp of geometry encoding volume")
     args = parser.parse_args()
 
-    model = torch.nn.DataParallel(Monster(args), device_ids=[0])
+    model = torch.nn.DataParallel(SyDENet(args), device_ids=[0])
 
     total_params = sum(p.numel() for p in model.parameters()) / 1e6
     print(f"Total number of parameters: {total_params:.2f}M")

@@ -28,9 +28,6 @@ class Combined_Geo_Encoding_Volume:
             init_corr = F.avg_pool2d(init_corr, [1,2], stride=[1,2])
             self.init_corr_pyramid.append(init_corr)
 
-
-
-
     def __call__(self, disp, coords):
         r = self.radius
         b, _, h, w = disp.shape
@@ -57,7 +54,6 @@ class Combined_Geo_Encoding_Volume:
         out = torch.cat(out_pyramid, dim=-1)
         return out.permute(0, 3, 1, 2).contiguous().float()
 
-    
     @staticmethod
     def corr(fmap1, fmap2):
         B, D, H, W1 = fmap1.shape

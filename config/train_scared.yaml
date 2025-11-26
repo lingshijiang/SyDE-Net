@@ -1,0 +1,47 @@
+wandb: {}
+project_name: scared
+#restore_ckpt: "./pretrained/sceneflow.pth"
+restore_ckpt: "./checkpoints/final.pth"
+logdir: './checkpoints/scared/'
+encoder: 'vitl'
+batch_size: 3
+train_datasets: ['scared']
+lr: 1e-4
+wdecay: 1e-5
+#total_step: 50000
+total_step: 2000
+#save_frequency: 2000
+save_frequency: 500
+save_path: ./checkpoints/scared/s
+#val_frequency: 2000
+val_frequency: 500
+image_size: [736, 320]
+train_iters: 22
+valid_iters: 32
+val_dataset: 'scared'
+scared_split: 'train'  # 训练时使用SCARED的训练分割
+corr_implementation: "reg"
+corr_levels: 2
+corr_radius: 4
+n_downsample: 2
+n_gru_layers: 3
+hidden_dims: [128, 128, 128]
+max_disp: 192
+saturation_range: [0.7, 1.3]
+do_flip: False
+spatial_scale: [-0.2, 0.5]
+noyjitter: True
+#val_samples: 1
+num_gpu: 1
+seed: 666
+
+# ========== SCAREDListDataset 开关与路径（若提供则启用基于list文件的预处理） ==========
+# 若下列三项均存在且路径有效，train_scared.py 将自动使用 SCAREDListDataset
+# 来复用另一个项目的预处理与列表加载方式；否则按当前 train_datasets 流程使用 SCARED 80/20 分割
+data_path: "/T2004100/project/yrh24/MonSter-main_new/core/data2/cjd/StereoDatasets/scared"
+trainlist: "/T2004100/project/yrh24/MonSter-main_new/core/data2/cjd/StereoDatasets/scared/datasets/scared_training.txt"  # 训练列表文件
+testlist: "/T2004100/project/yrh24/MonSter-main_new/core/data2/cjd/StereoDatasets/scared/datasets/scared_testset.txt"    # 验证列表文件
+
+# （可选）对齐另一项目的一些训练偏好；若不需要可忽略
+# use_onecycle_lr: true   # 该选项在当前脚本中未直接使用，仅保留为记录
+# test_batch_size: 4      # 仅供记录，当前验证 DataLoader 固定 batch_size=1
